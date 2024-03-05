@@ -15,7 +15,8 @@ exports.error_code_wise_status = {
 exports.responseCode = {
     SUCCESS: 1,
     FAIL: 0,
-    INTERNAL_ERROR: -1
+    INTERNAL_ERROR: -1,
+    SERVER_ERROR:-2
 
 }
 
@@ -33,6 +34,8 @@ exports.handelErrorResponse = (reject, error, message) => {
         return reject(this.responseDeliver(this.responseCode.INTERNAL_ERROR, "Unable to connect the database", error));
     }if (error.code === 'ERR_UNHANDLED_REJECTION') {
         return reject(this.responseDeliver(this.responseCode.INTERNAL_ERROR, "Data base operation error", error));
+    }if (error.code === 'ENETUNREACH') {
+        return reject(this.responseDeliver(this.responseCode.SERVER_ERROR, "Server side error (render)", error));
     } else
         return reject(this.responseDeliver(this.responseCode.FAIL, message, error));
 };

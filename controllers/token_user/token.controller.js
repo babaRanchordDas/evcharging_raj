@@ -26,7 +26,6 @@ exports.generateToken = (req, res) => {
     })
 }
 
-
 exports.generateAdminToken = (req, res) => {
     let {user_id,password} = req.body
 
