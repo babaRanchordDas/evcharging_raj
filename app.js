@@ -16,6 +16,7 @@ const userDashboard = require('./routes/userDashboard')
 // const { requestLogger } = require('./services/validator.service');
 const chargingStation = require('./routes/station/charging_station.router');
 const slot = require('./routes/station/slot.router');
+const booking = require('./routes/charging_booking/booking.router');
 const {responseCode} = require("./services/static.service");
 
 const app = express();
@@ -58,13 +59,17 @@ const root_point_v1 = '/api/v1'
 
 app.use(root_point_v1 + '/docs', express.static(path.join(__dirname, 'doc')));
 
+
 app.use(root_point_v1 + '/', indexRouter);
 app.use(root_point_v1 + '/auth', authorizationRouter);
+
 app.use(root_point_v1 + '/partner', partnerRouter);
+
 app.use(root_point_v1 + '/', generateToken);
 app.use(root_point_v1 + '/', userDashboard);
 app.use(root_point_v1 + '/', chargingStation);
 app.use(root_point_v1 + '/', slot);
+app.use(root_point_v1 + '/', booking);
 
 
 module.exports = app;

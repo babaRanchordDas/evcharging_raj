@@ -3,6 +3,7 @@ const generateTokenController = require('../../controllers/station/charging_stat
 const router = express.Router();
 
 router.post('/direct-create-station', generateTokenController.directCreateChargingStation);
+
 router.get('/station-by-code', generateTokenController.getChargingStationByCode);
 router.get('/station-by-user', generateTokenController.getChargingStationByUser);
 router.get('/station', generateTokenController.getChargingStations);

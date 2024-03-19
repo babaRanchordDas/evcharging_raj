@@ -7,10 +7,14 @@ const {responseDeliver, handelErrorResponse, responseCode} = require("../../serv
 exports.fetchUser = (user_id) => {
     return new Promise(async (resolve, reject) => {
         try {
-            let dataList = await pgClient(pgTables.users).where({user_id});
-            return resolve(responseDeliver(200, "User data fetched successfully", "", dataList));
+           pgClient(pgTables.users).where({user_id}).then(data=>{
+               return resolve(responseDeliver(responseCode.SUCCESS, "User data fetched successfully", "", data));
+           }).catch(error=>{
+               handelErrorResponse(reject,error,"error on fetch partner data")
+           });
         } catch (error) {
-            return reject(responseDeliver(400, "error on fetch partner data", error));
+            // return reject(responseDeliver(400, "error on fetch partner data", error));
+            handelErrorResponse(reject,error,"error on fetch partner data")
         }
     });
 };

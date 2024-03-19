@@ -23,6 +23,9 @@ exports.generateToken = (req, res) => {
             console.log("Something went wrong ")
             res.status(400).json({status: responseCode.FAIL, message: "Something went wrong "})
         }
+    }).catch(error=>{
+        res.status(400).json(error)
+
     })
 }
 
@@ -119,9 +122,10 @@ exports.allUser = (req, res) => {
 
 exports.checkToken = (req, res) => {
     verifyToken(req).then(data => {
-        res.status(200).json({message: "yooo", data: data})
+        res.status(200).json(data)
     }).catch(error => {
-        res.status(401).json(responseDeliver(responseCode.FAIL,"Token verification failed",error,error))
+        res.status(401).json(error)
+
     })
 }
 

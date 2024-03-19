@@ -19,7 +19,8 @@ exports.pgTables = {
     chargingStation:'rajChargingStation',
     partner:'rajPartner',
     slot:'rajSlot',
-    users:'rajUsers'
+    users:'rajUsers',
+    booking:'rajBookingDetails'
 }
 
 
