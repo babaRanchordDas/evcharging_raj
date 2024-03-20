@@ -20,6 +20,7 @@ exports.responseCode = {
 
 }
 
+exports.ADMIN_USER_ID = 'admin_token_bro'
 
 exports.responseDeliver = (code, message, error = "", data = []) => {
     data = Array.isArray(data) ? data : [data]

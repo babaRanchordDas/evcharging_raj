@@ -19,3 +19,52 @@ exports.createBooking = (reqData) => {
         }
     });
 }
+
+exports.getUserCurrentBooking=(reqData)=>{
+    let {user_id} = reqData
+    return new Promise(async (resolve,reject)=>{
+        try {
+            let result = await pgClient(pgTables.booking)
+                .whereIn('status',['BOOKED', 'REQUESTED'])
+                .andWhere({user_id})
+            return resolve(responseDeliver(responseCode.SUCCESS, "Current booking has been fetched successfully", "", result[0]))
+
+        }catch (error) {
+            handelErrorResponse(reject, error, "Unable to fetch the booking")
+        }
+    })
+}
+
+exports.getAllCurrentBooking=()=>{
+    return new Promise(async (resolve,reject)=>{
+        try {
+            let result = await pgClient(pgTables.booking)
+                .whereIn('status',['BOOKED', 'REQUESTED'])
+            return resolve(responseDeliver(responseCode.SUCCESS, "Current booking has been fetched successfully", "", result[0]))
+
+        }catch (error) {
+            handelErrorResponse(reject, error, "Unable to fetch the booking")
+        }
+    })
+}
+
+exports.getAllBookingsByDate = (reqData) => {
+    let {date} = reqData
+    return new Promise(async (resolve, reject) => {
+        try {
+            // Construct the date range for the provided date
+            const startDate = new Date(date);
+            const endDate = new Date(date);
+            endDate.setDate(endDate.getDate() + 1); // Add 1 day to get the end of the day
+
+            // Query bookings within the date range
+            let result = await pgClient(pgTables.booking)
+                .where('created_at', '>=', startDate.toISOString()) // Filter bookings after start of the provided date
+                .where('created_at', '<', endDate.toISOString()); // Filter bookings before the end of the provided date
+
+            return resolve(responseDeliver(responseCode.SUCCESS, "Bookings for the provided date have been fetched successfully", "", result));
+        } catch (error) {
+            handelErrorResponse(reject, error, "Unable to fetch the bookings for the provided date");
+        }
+    });
+};

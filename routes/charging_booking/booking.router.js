@@ -4,5 +4,5 @@ const bookingController = require("../../controllers/charginig_booking/booking.c
 const router = express.Router()
 
 router.post("/create-booking", bookingController.createBooking);
-
+router.get("/get-booking", bookingController.getUserCurrentBooking)
 module.exports = router;

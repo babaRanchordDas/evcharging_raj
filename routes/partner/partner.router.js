@@ -34,8 +34,7 @@ router.post('/onboard', partnerOnboardCtrl.partnerOnboard);
  * @apiBody {String} [start_date] in "DD-MM-yyyy" format
  * @apiBody {String} [end_date] in "DD-MM-yyyy" format
  * @apiBody {String} [status] only PENDING, REJECT, APPROVE are allowed
- *
- *
+
  */
 router.post('/fetch-onboard-data', partnerOnboardCtrl.fetchPartnersStatusWiseData);
 
